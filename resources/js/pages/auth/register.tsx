@@ -16,18 +16,33 @@ type Props = {
 export default function Register({ passwordRules }: Props) {
     return (
         <>
-            <Head title="Register" />
+            <Head title="新規登録" />
+
+            {/* タブ */}
+            <div className="mb-6 flex rounded-[10px] bg-[#EFF3F7] p-1">
+                {/* active: 白背景 + shadow */}
+                <TextLink href={login()} tabIndex={5} className="flex-1 rounded-[7px] border-0 bg-transparent text-center p-[9px] font-['Zen_Kaku_Gothic_New'] text-[13px] font-bold text-[#5B6B7E] shadow-none"
+                >
+                ログイン
+                </TextLink>
+                {/* inactive: 透明背景 */}
+                <button
+                type="button"
+                className="flex-1 rounded-[7px] border-0 bg-white p-[9px] font-['Zen_Kaku_Gothic_New'] text-[13px] font-bold text-[#124272] shadow-[0_1px_3px_rgba(18,66,114,.12)]">
+                    新規登録
+                </button>
+            </div>
+
             <Form
                 {...store.form()}
                 resetOnSuccess={['password', 'password_confirmation']}
                 disableWhileProcessing
-                className="flex flex-col gap-6"
             >
                 {({ processing, errors }) => (
                     <>
-                        <div className="grid gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                        <div className="grid gap-3.5">
+                            <div className="grid gap-[5px]">
+                                <Label htmlFor="name">ユーザー名</Label>
                                 <Input
                                     id="name"
                                     type="text"
@@ -36,7 +51,7 @@ export default function Register({ passwordRules }: Props) {
                                     tabIndex={1}
                                     autoComplete="name"
                                     name="name"
-                                    placeholder="Full name"
+                                    placeholder="現場太郎"
                                 />
                                 <InputError
                                     message={errors.name}
@@ -44,8 +59,8 @@ export default function Register({ passwordRules }: Props) {
                                 />
                             </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                            <div className="grid gap-[5px]">
+                                <Label htmlFor="email">メールアドレス</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -53,68 +68,40 @@ export default function Register({ passwordRules }: Props) {
                                     tabIndex={2}
                                     autoComplete="email"
                                     name="email"
-                                    placeholder="email@example.com"
+                                    placeholder="you@example.com"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
+                            <div className="grid gap-[5px]">
+                                <Label htmlFor="password">パスワード</Label>
                                 <PasswordInput
                                     id="password"
                                     required
                                     tabIndex={3}
                                     autoComplete="new-password"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="••••••••"
                                     passwordrules={passwordRules}
                                 />
                                 <InputError message={errors.password} />
                             </div>
 
-                            <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
-                                    Confirm password
-                                </Label>
-                                <PasswordInput
-                                    id="password_confirmation"
-                                    required
-                                    tabIndex={4}
-                                    autoComplete="new-password"
-                                    name="password_confirmation"
-                                    placeholder="Confirm password"
-                                    passwordrules={passwordRules}
-                                />
-                                <InputError
-                                    message={errors.password_confirmation}
-                                />
-                            </div>
+                            
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full"
                                 tabIndex={5}
                                 data-test="register-user-button"
                             >
                                 {processing && <Spinner />}
-                                Create account
+                                アカウント作成
                             </Button>
                         </div>
 
-                        <div className="text-center text-sm text-muted-foreground">
-                            Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6}>
-                                Log in
-                            </TextLink>
-                        </div>
                     </>
                 )}
             </Form>
         </>
     );
 }
-
-Register.layout = {
-    title: 'Create an account',
-    description: 'Enter your details below to create your account',
-};
